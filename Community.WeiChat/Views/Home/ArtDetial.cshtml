@@ -1,0 +1,440 @@
+﻿@{
+    ViewBag.Title = "ArtDetial";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link href="~/Css/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Css/weui.min.css" rel="stylesheet" />
+    <link href="~/Css/reset.css" rel="stylesheet" />
+    <link href="~/Css/index.css" rel="stylesheet" />
+    <title></title>
+</head>
+<body>
+    <div class="return">
+        <a href="javascript:history.go(-1)">返回 <span>新闻列表</span></a>
+    </div>
+    <div class="article">
+        <div class="article_intro clearfix">
+            <div class="article_intro1 l">
+                <img src="../images/UserHead.png" />
+            </div>
+            <div class="article_intro2 l">
+                <p class="article_intro2_p1">@ViewBag.Art.Author</p>
+                <p class="article_intro2_p2">@ViewBag.Art.time.ToString("yyyy-MM-dd HH:mm") </p>
+            </div>
+            @*<div class="article_intro3 r">
+                <div class="demos-content-padded">
+                    <a href="javascript:;" id="show-actions" class="">
+                        <img src="../images/share@2x.png" />
+                    </a>
+                </div>
+            </div>*@
+        </div>
+        <div class="article_con">
+            <div class="ac_title">
+                @ViewBag.Art.title
+            </div>
+            <div class="ac_detail"> 
+                <div class="ac_detail"> 
+                    <section style="font-size:14px;margin: 40px auto;white-space: normal;">
+                        <section style="margin:10px 0;padding:0">
+                            @{
+
+                                string imgg = ViewBag.Art.url;
+                             } 
+                            @if (imgg!="无")
+                            {
+                                <section class="96wx-bdc 96wx-color" style="margin: 0px; padding: 10px 10px 25px; box-sizing: border-box; border: 2px solid rgb(95, 170, 255); border-radius: 10px; color: rgb(95, 170, 255);">
+                                    <!--封面-->
+                                 <p> <img title="" alt=" " src="http://www.zsxxnet.cn/FwAdmin/Manager/Admin/Article/Save/@ViewBag.Art.url"></p> 
+                                </section>
+                            }
+                            
+                            <section style="margin-top:-20px;padding:0">
+                                <section style="margin-bottom:-25px;padding:0;display:inline-block;width:100%;margin-left:-25px;">
+                                    <section style="margin-left:20px;padding:0;float:left">
+                                        <section style="margin-bottom:-3px;padding:0;width:25px;height:7px;background-color:#333;border-radius:5px"></section>
+                                        <section style="margin-left:9px;padding:0;width:6px;height:40px;background-color:#ccc;border-radius:5px;transform:rotate(0);-moz-transform:rotate(0);-ms-transform:rotate(0);-o-transform:rotate(0);-webkit-transform:rotate(0)"></section>
+                                        <section style="margin-top:-3px;padding:0;width:25px;height:7px;background-color:#333;border-radius:5px"></section>
+                                    </section>
+                                    <section style="margin-right:20px;padding:0;float:right">
+                                        <section style="margin-bottom:-3px;padding:0;width:25px;height:7px;background-color:#333;border-radius:5px"></section>
+                                        <section style="margin-left:9px;padding:0;width:6px;height:40px;background-color:#ccc;border-radius:5px;transform:rotate(0);-moz-transform:rotate(0);-ms-transform:rotate(0);-o-transform:rotate(0);-webkit-transform:rotate(0)"></section>
+                                        <section style="margin-top:-3px;padding:0;width:25px;height:7px;background-color:#333;border-radius:5px"></section>
+                                    </section>
+                                </section>
+                                <section class="" style="margin: 0px; padding: 25px 10px 10px; box-sizing: border-box; border: 2px solid rgb(95, 170, 255); border-radius: 10px; color: rgb(95, 170, 255);">
+                                  <!--正文内容-->
+                                    @Html.Raw(ViewBag.Art.content)
+                                </section>
+                            </section>
+                        </section>
+                    </section> 
+                </div>
+            </div>
+        </div>
+        <!--热门推荐-->
+        <div class="hot_rec">
+            <div class="hot_rec_title">
+                <img src="../images/热门@2x.png" /> 热门推荐
+            </div>
+            <div class="hot_rec_list">
+                <ul>
+                    @foreach (var item in ViewBag.TopList)
+                    {
+                        <li><a href="@Url.Action("ArtDetial", "Home",new {id=item.id })">@item.title</a></li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+        <!--评论和点赞-->
+        <div class="comment clearfix">
+            <div class="comment_title clearfix">
+                <ul class="clearfix">
+                    <li class="ct_lion">评论<span></span></li>
+                    <li>点赞<span></span></li>
+                </ul>
+                <div class="comment_dx r">
+                    倒序查看
+                </div>
+            </div>
+            <!--评论-->
+            <div class="comment_px px_dz">
+                <ul id="CommentList">
+                    @*<li>
+                            <div class="comment_px1 clearfix">
+                                <div class="comment_px_left l">
+                                    <img src="../images/评论头像@2x.png" />
+                                </div>
+                                <div class="comment_px_right l">
+                                    <div class="comment_pxr_top clearfix">
+                                        <p class="comment_pxr_top_name l"> <span class="cp_top_name1">晓名xxx</span></p>
+                                        <p class="comment_pxr_top_time r">2小时前</p>
+                                    </div>
+                                    <div class="comment_pxr_con">
+                                        牛牛的,呵呵
+                                    </div>
+                                    <div class="comment_pxr_bot clearfix">
+                                        <span class="comment_pxr_bot_span l">1L</span>
+                                        <div class="comment_pxr_bot1 r">
+                                            <a href="javascript:void(0)" style="margin-right: 15%;"><i><img src="../images/点赞.png" /></i><span>1</span></a>
+                                            <a href="javascript:void(0)" class="reply_slist"><i><img src="../images/消息.png" /></i><span>1</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="comment_px_right2 clearfix">
+                                <div class="comment_px_left l">
+                                    <img src="../images/评论头像@2x.png" />
+                                </div>
+                                <div class="comment_px_right l">
+                                    <div class="comment_pxr_top clearfix">
+                                        <p class="comment_pxr_top_name l"><span class="cp_top_name1">晓明</span>  回复  <span class="cp_top_name2">小红</span></p>
+                                        <p class="comment_pxr_top_time r">2小时前</p>
+                                    </div>
+                                    <div class="comment_pxr_con">
+                                        牛牛的,呵呵
+                                    </div>
+                                    <div class="comment_pxr_bot clearfix">
+                                        <div class="comment_pxr_bot1 r">
+                                            <a href="javascript:void(0)" style="margin-right: 15%;"><i><img src="../images/点赞.png" /></i><span>1</span></a>
+                                            <a href="javascript:void(0)" class="reply_slist"><i><img src="../images/消息.png" /></i><span>1</span></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </li>*@
+                </ul>
+                <div class="comment_px_bottom">
+                    没有更多评论
+                </div>
+                <div class="comment_hf_praise clearfix">
+                    <div class="comment_hf l">
+                        回复
+                    </div>
+                    <div class="comment_praise l">
+                        <img src="../images/点赞.png" />
+                    </div>
+                </div>
+                <div class="comment_area clearfix">
+                    <textarea id="txtComment" name="" rows="" cols=""></textarea>
+                    <p id="Commentsend">发送</p>
+                </div>
+            </div>
+            <!--点赞-->
+            <div class="comment_dz px_dz" style="display: none;">
+                <div class="comment_dz1 clearfix">
+                    <ul>
+                        @foreach (var item in ViewBag.fourseList)
+                        {
+                            <li> <img src="../images/图层-1@2x.png" /> <span>@item.UserName</span></li>
+                        } 
+                        @*<li> <img src="../images/图层-1@2x.png" /> <span>农民的儿子</span></li>
+                      *@
+                    </ul>
+                </div>
+                <div class="comment_px_bottom">
+                    没有更多点赞
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/Index/zepto.min.js"></script>
+    <script src="~/Scripts/Index/weui.js"></script>
+    <script src="~/Scripts/Index/fastclick.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="~/Scripts/Index/index.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            FastClick.attach(document.body);
+        });
+        $(document).ready(function () {
+            var length = $(".ac_detail p img").length;
+            for (var i = 0; i < length; i++) {
+                var src = $(".ac_detail p img").eq(i).attr("src"); 
+                if (src.indexOf("www.zsxxnet.cn") < 0)
+                {
+                    var src1 = "http://www.cszsjy.com" + src;
+                    $(".ac_detail p img").eq(i).attr("src", src1);
+                }
+            }
+            $(".comment_praise").click(function () { 
+                       $.ajax({
+                    type: "post",
+                    url: "/CSWeiXin/Home/AddArtFabulous",
+                    dataType: "json",
+                    data: {
+                        artId: '@ViewBag.Art.id'
+                    },
+                    success: function (data) {
+                        if (data.date == 1) {
+                            alert(data.message);
+                            $(".comment_praise").find("img").attr("src", "../images/dz_red.png")
+                        } else if (data.date == 2) {
+                            alert(data.message);
+                            window.location.href = "/CSWeiXin/Home/UserLogin";
+                        } else {
+                             alert(data.message);
+                        }
+                    }
+                }); 
+            })
+        })
+        $(document).ready(function () {
+            var length = $(".ac_detail p a").length;
+            for (var i = 0; i < length; i++) {
+                var src = $(".ac_detail p a").eq(i).attr("href"); 
+                if (src.indexOf("www.zsxxnet.cn") < 0) {
+                    var src1 = "http://www.cszsjy.com" + src;
+                    $(".ac_detail p a").eq(i).attr("href", src1);
+                }
+            }
+        })
+        $(document).ready(function () {
+            var imgArray = [];
+
+            var length = $(".ac_detail p img").length;
+            for (var i = 0; i < length; i++) {
+                var src = $(".ac_detail p img").eq(i).attr("src");
+                console.log(src);
+                imgArray.push(src);
+            };
+
+            console.log(imgArray[0])
+            $('.ac_detail p img').on('click', function (event) {
+                var curImageSrc = $(this).attr('src');
+                var oParent = $(this).parent();
+                if (curImageSrc && !oParent.attr('href')) {
+                    $('.ac_detail p img').each(function (index, el) {
+                        var itemSrc = $(this).attr('src');
+                        imgArray.push(itemSrc);
+                    });
+                    wx.previewImage({
+                        current: curImageSrc,
+                        urls: imgArray
+                    });
+                }
+            });
+
+        })
+
+        $(document).on("click", "#show-actions", function () {
+            $.actions({
+                title: "选择操作",
+                onClose: function () {
+                    $(".weui-actionsheet").hide();
+                },
+                actions: [
+                    {
+                        text: "分享",
+                        className: "color-primary",
+                        onClick: function () {
+                            $.alert("分享");
+                            $(".weui-actionsheet").hide();
+                        }
+                    },
+                    {
+                        text: "收藏",
+                        className: "color-primary",
+                        onClick: function () {
+                            $.alert("收藏");
+                            $(".weui-actionsheet").hide();
+                        }
+                    },
+                    {
+                        text: "屏蔽话题",
+                        className: 'color-danger',
+                        onClick: function () {
+                            $.alert("屏蔽话题");
+                            $(".weui-actionsheet").hide();
+                        }
+                    },
+                    {
+                        text: "举报话题",
+                        className: 'color-danger',
+                        onClick: function () {
+                            $.alert("举报话题");
+                            $(".weui-actionsheet").hide();
+                        }
+                    }
+                ]
+            });
+        });
+        $(document).on("click", "#show-actions-bg", function () {
+            $.actions({
+                actions: [
+                    {
+                        text: "分享",
+                        className: "bg-primary",
+                    },
+                    {
+                        text: "收藏",
+                        className: "bg-warning",
+                    },
+
+                    {
+                        text: "屏蔽话题",
+                        className: 'bg-danger',
+                    },
+                    {
+                        text: "举报话题",
+                        className: 'bg-danger',
+                    }
+                ]
+            });
+        });
+        var CommentUserId = "";
+        var CommentID = "";
+        function CommentToUser(UserId, ID) {
+            CommentUserId = UserId;
+            CommentID = ID;
+            $(".comment_area").show();
+            $(".comment_hf_praise").hide();
+            var aa = $(this).parent().parent().parent().find(".comment_pxr_top").find(".comment_pxr_top_name").find(".cp_top_name1").html();
+            var a2 = "回复：" + CommentUserId;
+            console.log(aa);
+            $(".comment_area textarea").attr("placeholder", a2);
+
+        }
+        //回复文章添加评论列表
+        $(document).ready(function () {
+
+            $(".reply_slist").click(function () {
+
+
+
+            })
+            var clistNum = 5; //大列表
+            clistNum2 = 2; //小列表
+            clist();
+            $("#Commentsend").click(function () {
+                addComment();
+            })
+            function addComment() {
+                        $.ajax({
+                    type: "post",
+                    url: "../Home/AddComment",
+                    dataType: "json",
+                    data: {
+                        artId: '@ViewBag.Art.id',
+                        text: $("#txtComment").val(),
+                        touser: CommentUserId,
+                        parentId: CommentID
+                    },
+                    success: function (data) {
+                        if (data.date == 1) {
+                            alert(data.message);
+                            clist();
+                        } else {
+                            alert(data.message);
+                            window.location.href = "../Home/UserLogin";
+                        }
+                    }
+                });
+            };
+            function clist() {
+                $.ajax({
+                    type: "post",
+                    url: "../Home/GetArticleCommentList",
+                    dataType: "json",
+                    data: {
+                        artId: '@ViewBag.Art.id'
+                    },
+                    success: function (res) {
+                        if (res.success == true) {
+                            var html = '';
+                            for (var i = 0; i < res.data.date.length; i++) {
+                                var clt = res.data.date[i];
+
+                                html += "    <li>    <div class='comment_px1 clearfix'>"
+                                    + "<div class='comment_px_left l' >"
+                                    + "  <img src='../images/评论头像@2x.png' /> </div >"
+                                    + " <div class='comment_px_right l'>"
+                                    + " <div class='comment_pxr_top clearfix'>"
+                                    + "   <p class='comment_pxr_top_name l'> <span class='cp_top_name1'>"+ clt.FromUser + "</span></p>"
+                                    + "  <p class='comment_pxr_top_time r'>"+ clt.CreatTime + "</p>   </div>"
+                                    + "   <div class='comment_pxr_con'>    " + clt.Context + "  </div>"
+                                    + "   <div class='comment_pxr_bot clearfix'>"
+                                    + "     <span class='comment_pxr_bot_span l'>1L</span>"
+                                    + "    <div class='comment_pxr_bot1 r'>"
+                                    //+ "       <a href='javascript:void(0)'  aa=" + clt.Id + " style='margin-right: 15%;'><i><img src='../images/点赞.png' /></i><span>1</span></a>"
+                                    + "    <a href='javascript:void(0)'    onclick='CommentToUser(\""+ clt.FromUser + "\"," + clt.Id +")' class='reply_slist'><i><img src='../images/消息.png' /></i><span></span></a> </div> </div> </div> </div >";
+                                for (var j = 0; j < clt.ThisComment.length; j++) {
+                                    html += "     <div class='comment_px_right2 clearfix'>"
+                                        + "  <div class='comment_px_left l' >"
+                                        + "     <img src='../images/评论头像@2x.png' />  </div >"
+
+                                        + " <div class='comment_px_right l'>"
+                                        + "     <div class='comment_pxr_top clearfix'>"
+                                        + "        <p class='comment_pxr_top_name l'><span class='cp_top_name1'>" + clt.ThisComment[j].FromUser + "</span>  回复  <span class='cp_top_name2'>" + clt.ThisComment[j].ToUser + "</span></p>"
+                                        + "      <p class='comment_pxr_top_time r'>" + clt.ThisComment[j].CreatTime+"</p>  </div>"
+
+                                        + "   <div class='comment_pxr_con'> " + clt.ThisComment[j].Context + "  </div>"
+                                        + "   <div class='comment_pxr_bot clearfix'>"
+                                        + "      <div class='comment_pxr_bot1 r'>"
+                                        //+ "     <a href='javascript:void(0)'   aa=" + clt.ThisComment[j].Id + " style='margin-right: 15%;'><i><img src='../images/点赞.png' /></i><span>1</span></a>"
+                                        + "    <a href='javascript:void(0)'     onclick='CommentToUser('" + clt.ThisComment[j].FromUser + "',"+ clt.Id +")' class='reply_slist'><i><img src='../images/消息.png' /></i><span></span></a>  </div></div></div></div >";
+                             }
+                               html += '</li>';
+                            }
+                            $('#CommentList').append(html);
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+</body> 
+</html>
+

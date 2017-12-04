@@ -1,0 +1,164 @@
+﻿@{
+    ViewBag.Title = "ArtDetial";
+    Layout = null;
+} 
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>微信-课程中心</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <link href="~/Css/CourseWare/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Css/CourseWare/weui.min.css" rel="stylesheet" />
+    <link href="~/Css/CourseWare/reset.css" rel="stylesheet" />
+    <link href="~/Css/CourseWare/index.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="search_bar">
+        <div class="search_bar1 clearfix">
+            <div class="search_bar1_1 sb1_click l">
+                <img src="../images/侧滑@1x.png" />
+            </div>
+            <div class="search_bar1_1 sb1_clicked l">
+                <img src="../images/侧滑@1x.png" />
+            </div>
+            <div class="search_bar1_2 l">
+                课程中心
+            </div>
+            <div class="search_bar1_3 l">
+                <img src="../images/图层1@1x.png" />
+            </div>
+        </div>
+        <div class="search_bar1_inner clearfix">
+            <div class="search_bar1_inner1 l">
+                <img src="../images/返回@1x.png" />
+            </div>
+            <div class="search_bar1_inner2 l">
+                搜索
+            </div>
+        </div>
+        <div class="search_bar2">
+            <div class="search_bar2_con">
+                <input type="text" name="" id="" value="" placeholder="请输入关键词搜索" class="search_bar2_input1" />
+                <input type="btn" name="" id="" value="搜索" class="search_bar2_input2" />
+            </div>
+        </div>
+
+    </div>
+
+    <div class="main">
+        <!--左侧分类-->
+        <div class="sideBar">
+            <div class="sideBar_list">
+
+            </div>
+            <div class="sideBar_shadows" style="position: absolute;top: 0;height: 100%;width: 10px;background: url(../images/shadow.png) no-repeat;right: 0;">
+            </div>
+        </div>
+        <!--列表-->
+        <div class="wrap">
+            <ul></ul>
+            <div class="loadmore">
+                点击加载更多
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/CourseWare/zepto.min.js"></script>
+    <script src="~/Scripts/CourseWare/weui.js"></script>
+    <script src="~/Scripts/CourseWare/fastclick.js"></script>
+    <script src="~/Scripts/CourseWare/swiper.min.js"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="~/Scripts/CourseWare/index.js"></script>
+    <script type="text/javascript">
+
+        $(function () {
+            var postdata = { TeacherName: "", ChannelId: "-1", Page: 1, Rows: "10" };
+            list();
+            //slideBarList();
+            $("loadmore").click(function () {
+                list();
+            })
+            function list() {
+                $.ajax({
+                    type: "post",
+                    url: "../Home/GetCourseInfoList",
+                    dataType: "json",
+                    data: JSON.stringify(postdata),
+                    async: true,
+                    success: function (res) {
+                        if (res.Type == "1") {
+                            postdata.Page++;
+                            var html = "";
+                            for (var i = 0; i < res.Data.List.length; i++) {
+                                var cl = res.Data.List[i];
+                                html += "<li>" + "<a class='courseli clearfix' href='../Home/CourseDetial?id=" + cl.CourseId+"'>"+
+                                    "<div class='courseli_left l'>" +
+                                    "<div class='courseli_left1'><img src='" + cl.CourseImg + "'/></div>" +
+                                    "</div>" +
+                                    "<div class='courseli_right r'>" +
+                                    "<div class='courseli_right_title'>" + cl.CourseName + "</div>" +
+                                    "<div class='courseli_right_con'>讲师：" + cl.TeacherName + "</div>" +
+                                    "<div class='courseli_right_bottom clearfix'>" +
+                                    "<div class='courseli_right_bottom1 l'>" + cl.Credit + "学分</div>" +
+                                    "<div class='courseli_right_bottom2 r'>" + cl.SelectFlag + "</div>" +
+                                    "</div>" +
+                                    "</div>" +"</a>"+
+                                    "</li>";
+                            }
+                            $('ul').append(html);
+                        }
+                    }
+                });
+            }
+            function slideBarList() {
+                $.ajax({
+                    type: "post",
+                    url: "../Home/GetChannelInfoList",
+                    dataType: "json",
+                    async: true,
+                    success: function (res) {
+                        if (res.Type == "1") {
+                            var html = "";
+                            for (var i = 0; i < res.Data.List.length; i++) {
+                                var sbar = res.Data.List(i);
+                                if (res.list(i).parentId == 0) {
+                                    html += "<div class='sideBar_list1'>" +
+                                        "<div class='sideBar_list1_title clearfix'>" +
+                                        "<div class='sideBar_list1_title1 l'>" + sbar.ChannelName + "</div>" +
+                                        "</div>";
+                                    //for (var j = 0; j < sbar.length; j++) {
+                                    //    html += "<div class='sideBar_list2'>" +
+                                    //        "<div class='sideBar_list2_title clearfix'>" +
+                                    //        "<div class='sideBar_list2_title1 l'>" + sbar.secondF[j].title2 + "</div>" +
+                                    //        "<div class='sideBar_list2_title2 open r'>" + "<img src='images/open1x.png'/>" + '</div>' +
+                                    //        "<div class='sideBar_list2_title2 close r'>" + "<img src='images/close1x.png'/>" + "</div>" +
+                                    //        "</div>" +
+                                    //        "<ul>";
+                                    //    for (var k = 0; k < sbar.secondf.thirdF.length; k++) {
+                                    //        html += "<li class='clearfix'>" +
+                                    //            "<div class='sideBar_list2_lispan1 l'>" + sbar.secondf[j].thirdF[k].title3 + "</div>" +
+                                    //            "<div class='sideBar_list2_lispan2 r'>" + "</div>" +
+                                    //            "</li>";
+                                    //    }
+                                    //    html += "</ul>" +
+                                    //        "</div>" +
+                                    //        "</div>";
+                                    //}
+                                }
+
+                                $(".sideBar_list").append(html);
+                            };
+                        }
+
+                    }
+                })
+            }
+        })
+
+    </script>
+</body>
+</html>

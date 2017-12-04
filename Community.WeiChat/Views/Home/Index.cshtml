@@ -1,0 +1,123 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection"> 
+    <link href="~/Css/reset.css" rel="stylesheet" /> 
+    <link href="~/Css/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Css/weui.min.css" rel="stylesheet" />  
+    <link href="~/Css/swiper.min.css" rel="stylesheet" />
+    <link href="~/Css/index.css" rel="stylesheet" /> 
+    <title>@ViewBag.titleName</title>
+</head>
+<body>
+    <div class="header">
+        <div class="header_swiper">
+            <div class="swiper-wrapper">
+                @foreach (var item in ViewBag.titleImg)
+                {
+                     <div class="swiper-slide"><a href="/CSWeiXin/Home/ArtDetial?id=@item.Id"><img src="http://www.cszsjy.com/fwadmin/Manager/Admin/Article/Save/@item.Fujian" /></a></div>
+                }
+            </div>
+
+        </div>
+    </div>
+    <div class="news">
+        <ul>
+   
+        </ul>
+        <div class="loadmore" id="loadPage">
+            点击加载更多
+        </div>
+    </div> 
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/Index/zepto.min.js"></script>
+    <script src="~/Scripts/Index/weui.js"></script>
+    <script src="~/Scripts/Index/fastclick.js"></script> 
+    <script src="~/Scripts/Index/swiper.min.js"></script>
+    <script src="~/Scripts/Index/index.js"></script> 
+    <script type="text/javascript">
+        var pageNum = 1;
+        list();
+        $("#loadPage").click(function () {
+            list();
+        })
+        function list() {
+            $.ajax({
+                type: "post",
+                url: "../Home/GetArticleList",
+                datatype: "json",
+                data: {
+                    pagenum: pageNum,
+                    type:'@ViewBag.type'
+                }, 
+                success: function (res) {
+                    
+                    var str = JSON.parse(res)
+                    console.log(str);
+                    if (str.success == true) {
+                        pageNum++;
+           
+                        var html = '';
+                        for (var i = 0; i < str.data.length; i++) {
+                            var tpl = str.data[i]; 
+                            
+                            html += "<li><a href='../Home/ArtDetial?id=" + tpl.id + "' class='newsli clearfix'>" +
+                                "<div class='newsli_left l'>" +
+                                "<div class='newsli_left1'>";
+                            if (tpl.url!="无")
+                            {
+                                html += "<img src='http://www.cszsjy.com/fwadmin/Manager/Admin/Article/Save/" + tpl.url + "'>";
+                            }
+                            html+="  </div></div > "+
+											"<div class='newsli_right r'>"+
+												"<div class='newsli_right_title'>"+ tpl.title + "</div>"+
+												"<div class='newsli_right_con'></div>"+
+												"<div class='newsli_right_bottom clearfix'>"+
+													"<div class='newsli_right_bottom1 l'>"+
+                                "<img src='../images/视屏类.png'/> <span>" + tpl.time + "</span></div>"+
+													"<div class='newsli_right_bottom2 r'>"+
+														"<img src='../images/dzs.png'/> <span>"+ tpl.ClickRate + "</span>"+
+                                "<img src='../images/消息.png' alt='' /> <span>"+ tpl.IsTop + "</span></div></div></div></a></li>"; 
+                        }
+                        $('ul').append(html);
+                        var aa = $(".newsli").length;
+                        for (var i = 0; i < aa; i++) {
+                            if ($(".newsli").eq(i).find(".newsli_left1").find("img").attr("src")) {
+                                $(".newsli").eq(i).find(".newsli_right").attr({
+                                    "width": "73%"
+                                })
+                            } else {
+                                $(".newsli").eq(i).find(".newsli_right").css({
+                                    "width": "100%"
+                                })
+                                $(".newsli").eq(i).find(".newsli_left").hide()
+                            }
+                        }
+                    }
+                }
+            });
+        } 
+
+        var swiper = new Swiper('.header_swiper', {
+            slidesPerView: 1,
+            paginationClickable: true,
+            spaceBetween: 0,
+            loop: true,
+            resistanceRatio: 0,
+            centeredSlides: true,
+            autoplay: 2500,
+            autoplayDisableOnInteraction: false
+        });
+      
+    </script>
+</body>
+</html>

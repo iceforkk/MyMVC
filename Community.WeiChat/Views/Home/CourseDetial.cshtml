@@ -1,0 +1,110 @@
+﻿@{
+    Layout = null;
+}
+@model  CourseInfo
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>课程中心-播放详情介绍</title>
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection"> 
+    <link href="~/Css/Video/index.css" rel="stylesheet" />
+    <link href="~/Css/Video/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Css/Video/reset.css" rel="stylesheet" /> 
+    <link href="~/Css/Video/weui.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="video_player">
+        <video preload="auto" controls="controls"
+               webkit-playsinline="true" playsinline="true" x-webkit-airplay="true"
+               x5-video-player-type="h5" preload="auto" x5-video-player-fullscreen="true"
+               style="object-fit: fill;" id="video">
+            <source id="Video" src="@Model.OnlineUrl" type="video/mp4" />
+        </video>
+
+    </div>
+    <div class="video_introduce">
+        <div class="vi_title">
+            <p>介绍</p>
+        </div>
+        <div class="vi_detail1">
+            <div class="vi_detail1_title" id="txtTitle">
+                @Model.CourseName
+            </div>
+            <div class="vi_detail1_con clearfix">
+                <div class="vi_detail1_con1 l clearfix">
+
+                    <span class="vi_detail1_con1_span3" id="txtClick">@Model.ClickCount 人学过</span>
+                </div>
+                <div class="vi_detail1_con2 r" id="txtTeacher">
+                    讲师：@Model.TeacherName
+                </div>
+            </div>
+        </div>
+        <div class="vi_detail2">
+            <div class="vi_detail2_1 clearfix">
+                <p style="float: left;width: 50%;text-overflow: ellipsis;overflow: hidden;"><span class="vi_detail2_lispan1">课程分类</span>:&nbsp;&nbsp;&nbsp;@Model.ChannelName</p>
+                <p style="float: right;"><span class="vi_detail2_lispan1">学分</span>:&nbsp;&nbsp;&nbsp;<span class="vi_detail2_lispan2">0.5分</span></p>
+            </div>
+            <div class="vi_detail2_1 clearfix">
+                <p style="float: left;width: 50%;text-overflow: ellipsis;overflow: hidden;"><span class="vi_detail2_lispan1">时长</span>:&nbsp;&nbsp;&nbsp;@Model.Duration 分钟</p>
+                <p style="float: right;"><span class="vi_detail2_lispan1">进度</span>:&nbsp;&nbsp;&nbsp;<span class="vi_detail2_lispan2">@Model.BrowseScore</span></p>
+            </div>
+        </div>
+        <div class="vi_detail3">
+            <div class="vi_detail3_title">
+                课程简介
+            </div>
+            <div class="vi_detail3_con" id="txtDec">
+                @Model.Description
+            </div>
+        </div>
+    </div>
+    <script src="~/Scripts/Video/fastclick.js"></script>
+    <script src="~/Scripts/Video/zepto.min.js"></script> 
+    <script src="~/Scripts/Video/weui.js"></script> 
+    <script src="~/Scripts/Video/swiper.min.js"></script> 
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+    <script src="~/Scripts/Video/index.js"></script> 
+    <script type="text/javascript">
+        var video = document.getElementById("video");
+        //视频的记录 续播
+        $(document).ready(function () {
+            function setCurrentTime() {
+             video.currentTime =@Model.LastLocation;
+            }
+
+            setCurrentTime();
+
+            var storageTime;
+            var pox = 0;
+            var timer;
+            video.addEventListener('timeupdate', function () {
+                if (pox == 0) {
+                    var storageTime = video.currentTime;
+                    pox = 1;
+                }
+                //		console.log(pox)
+            });
+
+            function forbidFn() {
+                if (pox == 1) {
+                    var nowTime = video.currentTime;
+                    var time_jg = video.currentTime - storageTime;
+                    if (time_jg > 2) {
+                        video.currentTime = storageTime;
+                    }
+                } else {
+                    storageTime = nowTime;
+                }
+            };
+            timer = setInterval(forbidFn, 300);
+        })
+
+    </script>
+</body>
+</html>

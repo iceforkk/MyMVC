@@ -1,0 +1,116 @@
+﻿@{
+    ViewBag.Title = "UserLogin";
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <title>手机注册</title>
+    <link href="~/Content/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Content/weui.min.css" rel="stylesheet" />
+    <link href="~/Content/reset.css" rel="stylesheet" />
+    <link href="~/Content/zc.css" rel="stylesheet" />
+</head>
+
+<body>
+
+    <div class="weui-cells zc_mw">
+        <div class="weui-cell">
+            <div class="weui-cell__hd ">
+                手机号码
+            </div>
+            <div class="weui-cell__bd">
+                <input type="text" class="weui-input" id="userPhone" value="" maxlength="11" placeholder="" />
+            </div>
+            <div class="weui-cell__ft ">
+                ❋
+            </div>
+        </div>
+        <div class="weui-cell">
+            <div class="weui-cell__hd ">
+                姓名
+            </div>
+            <div class="weui-cell__bd">
+                <input type="text" id="userName" class="weui-input" value="" maxlength="20" placeholder="" />
+            </div>
+            <div class="weui-cell__ft ">
+                ❋
+            </div>
+        </div>
+    </div>
+    <div class="weui-cells zc_mw1">
+
+        @*<div class="weui-cell">
+            <div class="weui-cell__hd ">
+                手机号码
+            </div>
+            <div class="weui-cell__bd">
+                
+            </div>
+            <div class="weui-cell__ft ">
+                ❋
+            </div>
+        </div>*@
+
+    </div>
+
+    <div class="zc_bd">
+        <input type="button" name="" id="userRes" value="立即报名" class="weui-btn btn_cc" />
+    </div>
+    <script src="~/Scripts/Register/jquery-1.11.2.min.js"></script>
+    <script src="~/Scripts/Register/zepto.min.js"></script>
+    <script src="~/Scripts/Register/weui.js"></script>
+    <script src="~/Scripts/Register/fastclick.js"></script>
+    <script>
+            $("#userRes").click(function () {
+                var userName = $("#userName").val(); 
+                var userphone = $("#userPhone").val()
+                if (check(userName, userName, userphone)=="1")
+                {
+                    $.ajax({
+                        type: "post",
+                        url: "../Home/BaoMing",
+                        data: { userid: userName, userName: userName, userphone: userphone },
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.date == 1) {
+                                alert(data.message);
+                            } else {
+                                alert(data.message);
+                            }
+                        }
+                    });
+                }
+
+            });
+
+            function check(userId, userName, userphone)
+            {
+                var message = "1";
+                if (userId == "") {
+                    message ="用户名不可空";
+                }
+                if (userName == "")
+                {
+                    message = "姓名不可空";
+                }
+                if (userphone == "")
+                {
+                    message = "联系方式不可为空";
+                }
+                return message;
+
+
+            }
+
+
+    </script>
+</body>
+
+</html>

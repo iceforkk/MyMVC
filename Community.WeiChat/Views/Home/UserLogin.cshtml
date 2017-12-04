@@ -1,0 +1,76 @@
+﻿
+@{ 
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta content="telephone=no" name="format-detection">
+    <meta content="email=no" name="format-detection">
+    <title>绑定终身学习网账号</title>
+    <link href="~/Css/reset.css" rel="stylesheet" /> 
+    <link href="~/Css/jquery-weui.css" rel="stylesheet" />
+    <link href="~/Css/weui.min.css" rel="stylesheet" />
+    <link href="~/Css/login.css" rel="stylesheet" />
+    
+</head>
+<body>
+    <div class="head_image">
+        <img src="../images/椭圆1@1x.png" />
+    </div>
+    <div class="weui-cells login_mw">
+        <div class="weui-cell">
+            <div class="weui-cell__hd ">
+                <img src="../images/个人中心-(1).png" />
+            </div>
+            <div class="weui-cell__bd">
+                <input type="text" id="txtUserLogin" class="weui-input" value="" maxlength="20" placeholder="登录号" />
+            </div>
+        </div> 
+        <div class="weui-cell">
+            <div class="weui-cell__hd ">
+                <img src="../images/密码.png" />
+            </div>
+            <div class="weui-cell__bd">
+                <input type="text" id="txtPwd" class="weui-input" value="" maxlength="20" placeholder="密码" />
+            </div>
+        </div>
+    </div>
+    <div class="login_bd">
+        <a href="javascript:void(0);" id="btnLogin" class="weui-btn btn_cc">登录</a>
+    </div>
+    <div class="login_bd">
+        <a href="/Home/BaoMing" id="btnLogin" class="weui-btn btn_cc">立即报名</a>
+    </div>
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/Index/zepto.min.js"></script>
+    <script src="~/Scripts/Index/weui.js"></script>
+    <script src="~/Scripts/Index/fastclick.js"></script> 
+
+
+    <script> 
+        $("#btnLogin").click(function () {
+            $.ajax({
+                type: "post",
+                url: "/CSWeiXin/Home/Login",
+                data: { userLogin: $("#txtUserLogin").val(), pwd: $("#txtPwd").val()},
+                dataType: "json",
+                success: function (data) {
+                    if (data.date == 1) {
+                        alert(data.message);
+                        window.location.href = history.go(-1);
+                    } else {
+                        alert(data.message); 
+                    }
+                }
+            });
+        })
+    </script>
+</body> 
+</html>
+

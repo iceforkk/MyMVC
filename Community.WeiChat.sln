@@ -1,0 +1,55 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Community.WeiChat", "Community.WeiChat\Community.WeiChat.csproj", "{BB83413C-12DD-40DF-8601-F0F38A4F6BFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Community.Service", "Community.Service\Community.Service.csproj", "{0E4B9662-B53B-42EF-AECF-964F5A8CE362}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Community.Model", "Community.Model\Community.Model.csproj", "{DCA56BCF-E517-4308-85EE-85472D799186}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Community.IRepository", "Community.IRepository\Community.IRepository.csproj", "{73E2E9E3-94E7-42B8-BD54-1945D2976B13}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Community.Repository", "Community.Repository\Community.Repository.csproj", "{8BBC09CF-B405-4EA3-BFA0-870EC5FF5913}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Community.Common", "Community.Common\Community.Common.csproj", "{3992BFA6-034F-4830-B3C1-3B0552443725}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BB83413C-12DD-40DF-8601-F0F38A4F6BFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB83413C-12DD-40DF-8601-F0F38A4F6BFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB83413C-12DD-40DF-8601-F0F38A4F6BFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB83413C-12DD-40DF-8601-F0F38A4F6BFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E4B9662-B53B-42EF-AECF-964F5A8CE362}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E4B9662-B53B-42EF-AECF-964F5A8CE362}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E4B9662-B53B-42EF-AECF-964F5A8CE362}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E4B9662-B53B-42EF-AECF-964F5A8CE362}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCA56BCF-E517-4308-85EE-85472D799186}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCA56BCF-E517-4308-85EE-85472D799186}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCA56BCF-E517-4308-85EE-85472D799186}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCA56BCF-E517-4308-85EE-85472D799186}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73E2E9E3-94E7-42B8-BD54-1945D2976B13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73E2E9E3-94E7-42B8-BD54-1945D2976B13}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73E2E9E3-94E7-42B8-BD54-1945D2976B13}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73E2E9E3-94E7-42B8-BD54-1945D2976B13}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8BBC09CF-B405-4EA3-BFA0-870EC5FF5913}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8BBC09CF-B405-4EA3-BFA0-870EC5FF5913}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8BBC09CF-B405-4EA3-BFA0-870EC5FF5913}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8BBC09CF-B405-4EA3-BFA0-870EC5FF5913}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3992BFA6-034F-4830-B3C1-3B0552443725}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3992BFA6-034F-4830-B3C1-3B0552443725}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3992BFA6-034F-4830-B3C1-3B0552443725}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3992BFA6-034F-4830-B3C1-3B0552443725}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {30DDD6A2-CCE9-4410-BFD2-0995290D38AC}
+	EndGlobalSection
+EndGlobal
